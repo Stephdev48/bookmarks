@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bookmark index{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Bookmark index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BookName</th>
+                <th>CreationDate</th>
+                <th>Url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bookmark in bookmarks %}
+            <tr>
+                <td>{{ bookmark.id }}</td>
+                <td>{{ bookmark.bookName }}</td>
+                <td>{{ bookmark.creationDate ? bookmark.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bookmark.url }}</td>
+                <td>
+                    <a href="{{ path('app_admin_bookmark_show', {'id': bookmark.id}) }}">show</a>
+                    <a href="{{ path('app_admin_bookmark_edit', {'id': bookmark.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_bookmark_new') }}">Create new</a>
+{% endblock %}
